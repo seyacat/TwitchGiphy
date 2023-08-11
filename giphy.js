@@ -10,6 +10,7 @@ const constainer = document.getElementById("container");
 const image = document.getElementById("image");
 const msg = document.getElementById("msg");
 const msgQueue = [];
+let nextText = "";
 let timeout = 0;
 
 const gifQueu = function (msgData) {
@@ -37,7 +38,7 @@ const getRandomGif = async function (msgData) {
     )
   ).json();
   image.src = ret.data.images.original.url;
-  msg.innerText = `${msgData?.["display-name"]}:${msgData.msg}`;
+  nextText = `${msgData?.["display-name"]}:${msgData.msg}`;
 };
 
 twitch(gifQueu);
@@ -46,6 +47,7 @@ image.addEventListener("load", () => {
   timeout = 8;
   constainer.classList.remove("on");
   constainer.style.opacity = 1;
+  msg.innerText = nextText;
 });
 
 const tic = function () {

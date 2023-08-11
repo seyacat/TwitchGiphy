@@ -23,6 +23,11 @@ ws.addEventListener("open", (event) => {
 // Evento que se ejecuta cuando se recibe un mensaje del servidor
 ws.addEventListener("message", (event) => {
   let msg = event.data;
+
+  if (msg.indexOf("PING") == 0) {
+    ws.send("PONG");
+  }
+
   let data = {};
   for (let pair of msg.split("!", 2)[0].split(";")) {
     let p = pair.split("=");
