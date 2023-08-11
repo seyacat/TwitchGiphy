@@ -38,7 +38,7 @@ const getRandomGif = async function (msgData) {
     )
   ).json();
   image.src = ret.data.images.original.url;
-  nextText = `${msgData?.["display-name"]}:${msgData.msg}`;
+  nextText = `${msgData?.["display-name"]}: ${msgData.msg}`;
 };
 
 twitch(gifQueu);
