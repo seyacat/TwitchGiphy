@@ -10,7 +10,7 @@ const constainer = document.getElementById("container");
 const image = document.getElementById("image");
 const msg = document.getElementById("msg");
 const msgQueue = [];
-let nextText = "";
+let nextText = "Test";
 let timeout = 0;
 
 const gifQueu = function (msgData) {
