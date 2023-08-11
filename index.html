@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="giphy.js" type="module"></script>
+    <style>
+      html,
+      body {
+        background-color: transparent;
+      }
+      #container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      img {
+        width: 100%;
+      }
+      #msg {
+        font-family: sans-serif;
+        font-weight: bold;
+        /* display: flex; */
+        width: 100%;
+        /* align-content: flex-end; */
+        /* justify-content: flex-start; */
+        text-align: center;
+        font-size: 5vw;
+        margin: 0;
+        color: red;
+        text-shadow: black;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        99% {
+          opacity: 0.01;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .display-none.on {
+        display: block;
+        animation: fadeOut 1s;
+        animation-fill-mode: forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="display-none">
+      <img
+        id="image"
+        src="https://media3.giphy.com/media/dw36yjtOAtuSZyxEJG/giphy.gif?cid=edff8f7544ef05252b64498289b7822b8ef3e8013cbb40b3&ep=v1_gifs_random&rid=giphy.gif&ct=g"
+      />
+      <p id="msg">msg</p>
+    </div>
+  </body>
+</html>
