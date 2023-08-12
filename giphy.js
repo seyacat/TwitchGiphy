@@ -33,7 +33,7 @@ const getRandomGif = async function (msgData) {
   }
   const ret = await (
     await fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${msgData.msg}`,
+      `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&rating=pg-13&tag=${msgData.msg}`,
       { method: "GET" }
     )
   ).json();
