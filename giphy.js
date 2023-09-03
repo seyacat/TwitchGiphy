@@ -33,11 +33,12 @@ const getRandomGif = async function (msgData) {
   }
   const ret = await (
     await fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&rating=pg-13&tag=${msgData.msg}`,
+      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&rating=pg-13&q=${msgData.msg}`,
       { method: "GET" }
     )
   ).json();
-  image.src = ret.data.images.original.url;
+  const gif = ret.data[Math.floor(Math.random() * ret.data.length)];
+  image.src = gif.images.original.url;
   nextText = `${msgData?.["display-name"]}: ${msgData.msg}`;
 };
 
