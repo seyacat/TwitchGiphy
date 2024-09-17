@@ -7,6 +7,26 @@ export default (f) => {
   subscribers.push(f);
 };
 
+//function than fetch json https://api.betterttv.net/3/cached/emotes/global
+const getGlobalEmotes = async function () {
+  /*
+      [{
+        "id": "54fa8f1401e468494b85b537",
+        "code": ":tf:",
+        "imageType": "png",
+        "animated": false,
+        "userId": "5561169bd6b9d206222a8c19",
+        "modifier": false
+    },]
+  */
+  const ret = await (
+    await fetch("https://api.betterttv.net/3/cached/emotes/global")
+  ).json();
+  return ret;
+};
+
+const globalEmotes = await getGlobalEmotes();
+
 // Crear una instancia de WebSocket
 const ws = new WebSocket("wss://irc-ws.chat.twitch.tv:443");
 
@@ -47,6 +67,19 @@ ws.addEventListener("message", (event) => {
     data["channel"] = remsg[5];
     data["msg"] = remsg[6];
   }
+
+  //emotes
+  data["globalEmotes"] = [];
+  data["cleanedMsg"] = data["msg"];
+  data["msg"]?.split(" ").forEach((word) => {
+    if (globalEmotes.find((emote) => emote.code == word)) {
+      data["globalEmotes"].push(word);
+      data["cleanedMsg"] = data["cleanedMsg"].replace(word, "");
+    }
+  });
+
+  //remove double spaces
+  data["cleanedMsg"] = data["cleanedMsg"]?.replace(/\s{2,}/g, " ");
 
   for (const f of subscribers) {
     if (typeof f == "function") {

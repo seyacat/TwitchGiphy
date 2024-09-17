@@ -27,13 +27,14 @@ const readTTS = async function (msgData) {
   console.log({ msgData });
 
   if (
-    msgData.cmd != "PRIVMSG"
+    msgData.cmd != "PRIVMSG" ||
+    !msgData.cleanedMsg
     //msgData?.["custom-reward-id"] != customRewardId
   ) {
     return;
   }
   locked = true;
-  nextText = `${msgData?.["display-name"]}: ${msgData.msg}`;
+  nextText = `${msgData?.["display-name"]}: ${msgData.cleanedMsg}`;
   const utterance = new SpeechSynthesisUtterance(nextText);
   speechSynthesis.speak(utterance);
   utterance.onend = function () {
