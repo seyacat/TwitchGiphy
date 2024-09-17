@@ -23,6 +23,7 @@ ws.addEventListener("open", (event) => {
 // Evento que se ejecuta cuando se recibe un mensaje del servidor
 ws.addEventListener("message", (event) => {
   let msg = event.data;
+  console.log({ rawmsg: msg });
 
   if (msg.indexOf("PING") == 0) {
     ws.send("PONG");

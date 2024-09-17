@@ -1,5 +1,11 @@
 import twitch from "./twitch.js";
 
+//USO
+//https://seyacat.github.io/TwitchGiphy/?channel=YOUR_CHANNEL_NAME&api-key=YOUR_API_KEY&custom-reward-id=YOUR_CUSTOM_REWARD_ID
+
+//api-key se consigue en el portal de giphy
+//custom-reward-id es el id de reward que se crea en el panel de control de twitch
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const apiKey = urlParams.get("api-key") ?? localStorage.apikey;
@@ -7,7 +13,9 @@ const customRewardId =
   urlParams.get("custom-reward-id") ?? "37f43acd-8b34-42cf-8392-39f2ebda97ad";
 
 const constainer = document.getElementById("container");
+
 const image = document.getElementById("image");
+
 const msg = document.getElementById("msg");
 const msgQueue = [];
 let nextText = "Test";

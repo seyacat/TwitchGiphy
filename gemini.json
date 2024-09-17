@@ -1,0 +1,4 @@
+{
+  "context": ["public"],
+  "allowed": ["public", "server.js"]
+}

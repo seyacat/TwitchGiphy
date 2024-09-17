@@ -20,7 +20,7 @@ Este script te permite mostrar GIFs aleatorios de Giphy en tu stream de Twitch c
 3. **Añade el Script a tu Overlay:**
    - Utiliza un software de streaming como OBS Studio para añadir una nueva fuente de navegador.
    - Configura la URL de la fuente del navegador para que apunte a la ubicación donde has alojado el script.
-   https://seyacat.github.io/TwitchGiphy/?api-key=YOUR_API_KEY&custom-reward-id=YOUR_CUSTOM_REWARD_ID
+   https://seyacat.github.io/TwitchGiphy/?channel=YOUR_CHANNEL_NAME&api-key=YOUR_API_KEY&custom-reward-id=YOUR_CUSTOM_REWARD_ID
 
 ## Uso
 
