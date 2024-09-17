@@ -19,9 +19,9 @@ const getGlobalEmotes = async function () {
         "modifier": false
     },]
   */
-  const ret = await (
-    await fetch("https://api.betterttv.net/3/cached/emotes/global")
-  ).json();
+  const ret = await //https://emotes.adamcy.pl/v1/global/emotes/all
+  //https://api.betterttv.net/3/cached/emotes/global
+  (await fetch("https://emotes.adamcy.pl/v1/global/emotes/all")).json();
   return ret;
 };
 
@@ -80,6 +80,12 @@ ws.addEventListener("message", (event) => {
 
   //remove double spaces
   data["cleanedMsg"] = data["cleanedMsg"]?.replace(/\s{2,}/g, " ");
+
+  //remove url
+  data["cleanedMsg"] = data["cleanedMsg"]?.replace(
+    /https?:\/\/\S+/g,
+    "Envió URL"
+  );
 
   for (const f of subscribers) {
     if (typeof f == "function") {
