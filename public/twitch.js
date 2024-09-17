@@ -82,10 +82,7 @@ ws.addEventListener("message", (event) => {
   data["cleanedMsg"] = data["cleanedMsg"]?.replace(/\s{2,}/g, " ");
 
   //remove url
-  data["cleanedMsg"] = data["cleanedMsg"]?.replace(
-    /https?:\/\/\S+/g,
-    "Envió URL"
-  );
+  data["cleanedMsg"] = data["cleanedMsg"]?.replace(/https?:\/\/\S+/g, "URL");
 
   for (const f of subscribers) {
     if (typeof f == "function") {
