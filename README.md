@@ -1,31 +1,31 @@
-# Gif Rotation for Twitch
+# Twitch Giphy
 
-Este es un simple visualizador de gifs para Twitch que muestra gifs basados en los mensajes del chat.
+## Descripción
+
+Este script te permite mostrar GIFs aleatorios de Giphy en tu stream de Twitch cuando se canjea un reward personalizado.
 
 ## Configuración
 
-1.  **Crea una cuenta de desarrollador de Twitch:** Si aún no tienes una, puedes crear una en [https://dev.twitch.tv/](https://dev.twitch.tv/).
-2.  **Registra tu aplicación:** En el panel de control de tu desarrollador de Twitch, registra una nueva aplicación.
-    *   Establece la URL de redirección OAuth en `http://localhost:8080/`.
-    *   Añade `channel:read:redemptions` como un ámbito OAuth.
-3.  **Crea un Custom Reward:** En tu panel de control de creador de Twitch, crea un nuevo Custom Reward.
-    *   Establece el nombre y el costo como desees.
-4.  **Obtén tu clave API de Giphy:** Crea una cuenta de desarrollador de Giphy en [https://developers.giphy.com/](https://developers.giphy.com/) y obtén una clave API.
-5.  **Actualiza el archivo `script.js`:**
-    *   Reemplaza `YOUR_TWITCH_CLIENT_ID` con el ID de cliente de tu aplicación Twitch.
-    *   Reemplaza `YOUR_GIPHY_API_KEY` con tu clave API de Giphy.
-    *   Reemplaza `YOUR_CUSTOM_REWARD_ID` con el ID de tu Custom Reward.
-6.  **Inicia el servidor web:** Navega hasta el directorio del proyecto en tu terminal y ejecuta `npm start`.
-7.  **¡Pruébalo!** Inicia sesión en tu cuenta de Twitch y activa el Custom Reward en tu chat. Los espectadores ahora pueden canjear el reward para mostrar un gif en la transmisión.
+1. **Obtén tu API Key de Giphy:**
+   - Ve a [https://developers.giphy.com/](https://developers.giphy.com/) y crea una cuenta de desarrollador si aún no lo has hecho.
+   - Crea una nueva aplicación y selecciona el tipo de SDK como "Website".
+   - Copia la API Key que se te proporciona.
+
+2. **Crea un Reward Personalizado en Twitch:**
+   - Ve a tu panel de control de creador en Twitch.
+   - Ve a la sección de "Puntos de canal" y luego a "Rewards".
+   - Crea un nuevo reward personalizado y asígnale un nombre y un costo en puntos de canal.
+
+
+3. **Añade el Script a tu Overlay:**
+   - Utiliza un software de streaming como OBS Studio para añadir una nueva fuente de navegador.
+   - Configura la URL de la fuente del navegador para que apunte a la ubicación donde has alojado el script.
+   https://seyacat.github.io/TwitchGiphy/?api-key=YOUR_API_KEY&custom-reward-id=YOUR_CUSTOM_REWARD_ID
+
+## Uso
+
+Una vez que hayas configurado todo, cuando un espectador canjee tu reward personalizado, el script buscará en Giphy un GIF aleatorio relacionado con el mensaje del reward y lo mostrará en tu overlay.
 
 ## Personalización
 
-Puedes personalizar la apariencia del visualizador de gifs editando el archivo `style.css`. También puedes ajustar la duración de la visualización del gif cambiando el valor de `timeout` en el archivo `script.js`.
-
-## Contribuciones
-
-Las solicitudes de extracción son bienvenidas. Para cambios importantes, abre un issue primero para discutir los cambios que te gustaría hacer.
-
-## Licencia
-
-[MIT](https://choosealicense.com/licenses/mit/)
+Puedes personalizar el script aún más editando el archivo `giphy.js`. Por ejemplo, puedes cambiar la clasificación de contenido de los GIFs, el tiempo que se muestra cada GIF, etc.
