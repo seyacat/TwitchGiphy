@@ -12,6 +12,7 @@ const msgQueue = [];
 let nextText = "Test";
 let timeout = 0;
 let locked = false;
+let lastUserName = null;
 
 const ttsQueu = function (msgData) {
   if (
@@ -34,7 +35,14 @@ const readTTS = async function (msgData) {
     return;
   }
   locked = true;
-  nextText = `${msgData?.["display-name"]}: ${msgData.cleanedMsg}`;
+  const currentUserName = msgData?.["display-name"] || msgData?.username;
+  let nextText;
+  if (currentUserName && currentUserName === lastUserName) {
+    nextText = msgData.cleanedMsg;
+  } else {
+    nextText = `${currentUserName || "Usuario"}: ${msgData.cleanedMsg}`;
+  }
+  lastUserName = currentUserName;
   const utterance = new SpeechSynthesisUtterance(nextText);
   speechSynthesis.speak(utterance);
   utterance.onend = function () {
