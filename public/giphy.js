@@ -59,7 +59,7 @@ const gifQueu = function (msgData) {
   const activeUsers = countActiveUsers();
   
   // If less than 5 active users, accept all messages
-  if (activeUsers < 2) {
+  if (activeUsers <= 3) {
     msgQueue.push(msgData);
     return;
   }
