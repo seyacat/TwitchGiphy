@@ -9,20 +9,32 @@ export default (f) => {
 
 //function than fetch json https://api.betterttv.net/3/cached/emotes/global
 const getGlobalEmotes = async function () {
-  /*
-      [{
-        "id": "54fa8f1401e468494b85b537",
-        "code": ":tf:",
-        "imageType": "png",
-        "animated": false,
-        "userId": "5561169bd6b9d206222a8c19",
-        "modifier": false
-    },]
-  */
-  const ret = await //https://emotes.adamcy.pl/v1/global/emotes/all
-  //https://api.betterttv.net/3/cached/emotes/global
-  (await fetch("https://emotes.adamcy.pl/v1/global/emotes/all")).json();
-  return ret;
+  // Primary source: emotes.adamcy.pl
+  try {
+    const res = await fetch("https://emotes.adamcy.pl/v1/global/emotes/all");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    console.log(`[emotes] Loaded ${data.length} global emotes from adamcy.pl`);
+    return data;
+  } catch (err) {
+    console.warn("[emotes] adamcy.pl failed, trying BetterTTV fallback:", err.message);
+  }
+
+  // Fallback: BetterTTV global emotes
+  // BetterTTV format: { id, code, imageType, animated, userId, modifier }
+  try {
+    const res = await fetch("https://api.betterttv.net/3/cached/emotes/global");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    console.log(`[emotes] Loaded ${data.length} global emotes from BetterTTV`);
+    return data;
+  } catch (err) {
+    console.warn("[emotes] BetterTTV fallback also failed:", err.message);
+  }
+
+  // Both sources failed — continue without emotes
+  console.error("[emotes] Could not load global emotes from any source. Emote detection disabled.");
+  return [];
 };
 
 const globalEmotes = await getGlobalEmotes();
@@ -72,7 +84,7 @@ ws.addEventListener("message", (event) => {
   data["globalEmotes"] = [];
   data["cleanedMsg"] = data["msg"];
   data["msg"]?.split(" ").forEach((word) => {
-    if (globalEmotes.find((emote) => emote.code == word)) {
+    if (globalEmotes?.find((emote) => emote.code == word)) {
       data["globalEmotes"].push(word);
       data["cleanedMsg"] = data["cleanedMsg"].replace(word, "");
     }
