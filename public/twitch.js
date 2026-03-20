@@ -54,7 +54,7 @@ ws.addEventListener("open", (event) => {
 
 // Evento que se ejecuta cuando se recibe un mensaje del servidor
 ws.addEventListener("message", (event) => {
-  let msg = event.data;
+  let msg = event.data.trim(); // strip \r\n from Twitch IRC
   console.log({ rawmsg: msg });
 
   if (msg.indexOf("PING") == 0) {
@@ -95,6 +95,9 @@ ws.addEventListener("message", (event) => {
 
   //remove url
   data["cleanedMsg"] = data["cleanedMsg"]?.replace(/https?:\/\/\S+/g, "URL");
+
+  //trim stray whitespace / carriage returns
+  data["cleanedMsg"] = data["cleanedMsg"]?.trim() || null;
 
   for (const f of subscribers) {
     if (typeof f == "function") {
