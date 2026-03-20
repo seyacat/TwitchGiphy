@@ -77,15 +77,26 @@ const getRandomGif = async function (msgData) {
   if (msgData.cmd != "PRIVMSG") {
     return;
   }
-  const ret = await (
-    await fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&rating=pg-13&q=${msgData.msg}`,
-      { method: "GET" }
-    )
-  ).json();
-  const gif = ret.data[Math.floor(Math.random() * ret.data.length)];
-  image.src = gif.images.original.url;
-  nextText = `${msgData?.["display-name"]}: ${msgData.msg}`;
+  const searchQuery = msgData.cleanedMsg || msgData.msg;
+  try {
+    const ret = await (
+      await fetch(
+        `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&rating=pg-13&q=${encodeURIComponent(searchQuery)}`,
+        { method: "GET" }
+      )
+    ).json();
+    if (!ret.data?.length) {
+      console.warn("[giphy] No results for:", searchQuery);
+      return;
+    }
+    const gif = ret.data[Math.floor(Math.random() * ret.data.length)];
+    image.src = gif.images.original.url;
+    nextText = `${msgData?.["display-name"] || msgData.username}: ${searchQuery}`;
+  } catch (err) {
+    console.error("[giphy] Failed to fetch GIF:", err.message);
+    // Reset timeout so the queue is not permanently blocked
+    timeout = 0;
+  }
 };
 
 twitch(gifQueu);
